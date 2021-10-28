@@ -10,8 +10,8 @@ public class Conta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idConta;
-    private Long conta;
-    private Long agencia;
+    private int conta;
+    private int agencia;
     private double saldo;
     private double limiteCredito;
     private String tipoConta;
@@ -23,7 +23,7 @@ public class Conta {
 
     }
 
-    public Conta(int idConta, Long conta, Long agencia, double saldo, double limiteCredito, String tipoConta, Cliente cliente) {
+    public Conta(int idConta, int conta, int agencia, double saldo, double limiteCredito, String tipoConta, Cliente cliente) {
         this.idConta = idConta;
         this.conta = conta;
         this.agencia = agencia;
@@ -41,19 +41,19 @@ public class Conta {
         this.idConta = idConta;
     }
 
-    public Long getConta() {
+    public int getConta() {
         return conta;
     }
 
-    public void setConta(Long conta) {
+    public void setConta(int conta) {
         this.conta = conta;
     }
 
-    public Long getAgencia() {
+    public int getAgencia() {
         return agencia;
     }
 
-    public void setAgencia(Long agencia) {
+    public void setAgencia(int agencia) {
         this.agencia = agencia;
     }
 
