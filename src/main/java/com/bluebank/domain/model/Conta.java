@@ -7,8 +7,6 @@ import javax.persistence.*;
 @Entity
 public class Conta {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idConta;
