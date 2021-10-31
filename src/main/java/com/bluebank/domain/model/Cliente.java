@@ -1,4 +1,4 @@
-package com.bluebank.domain;
+package com.bluebank.domain.model;
 
 import java.io.Serializable;
 import java.util.Date;
