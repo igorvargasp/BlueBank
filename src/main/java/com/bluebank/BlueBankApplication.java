@@ -1,9 +1,10 @@
 package com.bluebank;
 
-import com.bluebank.domain.model.Cliente;
-import com.bluebank.domain.model.Conta;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.bluebank.model.Cliente;
+import com.bluebank.model.Conta;
 
 import java.util.Date;
 

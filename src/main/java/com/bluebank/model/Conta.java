@@ -1,4 +1,4 @@
-package com.bluebank.domain.model;
+package com.bluebank.model;
 
 
 import javax.persistence.*;
