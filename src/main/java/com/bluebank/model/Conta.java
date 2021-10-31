@@ -15,6 +15,7 @@ public class Conta {
     private double saldo;
     private double limiteCredito;
     private String tipoConta;
+    
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
