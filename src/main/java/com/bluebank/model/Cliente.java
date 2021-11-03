@@ -2,11 +2,16 @@ package com.bluebank.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cliente implements Serializable{
@@ -18,6 +23,14 @@ public class Cliente implements Serializable{
 	private Integer id;
 	
 	private String cpf;
+	
+	
+	//@OneToMany(mappedBy = "cliente")
+	//private List<Conta> contas; 
+	
+	@OneToOne
+	@JoinColumn(name = "cliente")
+	private Conta conta;
 	
 	private String nomeCompleto;
 	
@@ -35,11 +48,12 @@ public class Cliente implements Serializable{
 		
 	}
 
-	public Cliente(int id, String cpf, String nomeCompleto, Date dataNascimento, String tipoCliente, String email,
-			String telefone, double rendaMensal) {
+		public Cliente(Integer id, String cpf, Conta conta, String nomeCompleto, Date dataNascimento,
+			String tipoCliente, String email, String telefone, double rendaMensal) {
 		super();
 		this.id = id;
 		this.cpf = cpf;
+		this.conta = conta;
 		this.nomeCompleto = nomeCompleto;
 		this.dataNascimento = dataNascimento;
 		this.tipoCliente = tipoCliente;
@@ -47,6 +61,8 @@ public class Cliente implements Serializable{
 		this.telefone = telefone;
 		this.rendaMensal = rendaMensal;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -110,6 +126,20 @@ public class Cliente implements Serializable{
 
 	public void setRendaMensal(double rendaMensal) {
 		this.rendaMensal = rendaMensal;
+	}
+	
+
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Override

@@ -9,7 +9,7 @@ public class Conta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idConta;
+    private Integer idConta;
     private int conta;
     private int agencia;
     private double saldo;
@@ -24,7 +24,7 @@ public class Conta {
 
     }
 
-    public Conta(int idConta, int conta, int agencia, double saldo, double limiteCredito, String tipoConta, Cliente cliente) {
+    public Conta(Integer idConta, int conta, int agencia, double saldo, double limiteCredito, String tipoConta, Cliente cliente) {
         this.idConta = idConta;
         this.conta = conta;
         this.agencia = agencia;
@@ -34,11 +34,11 @@ public class Conta {
         this.cliente = cliente;
     }
 
-    public int getIdConta() {
+    public Integer getIdConta() {
         return idConta;
     }
 
-    public void setIdConta(int idConta) {
+    public void setIdConta(Integer idConta) {
         this.idConta = idConta;
     }
 
