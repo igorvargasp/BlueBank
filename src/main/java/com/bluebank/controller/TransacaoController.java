@@ -1,2 +1,4 @@
-package com.bluebank.controller;public class TransacaoController {
+package com.bluebank.controller;
+
+public class TransacaoController {
 }
