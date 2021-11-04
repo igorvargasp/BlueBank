@@ -1,6 +1,3 @@
-
-
-
 <h2>Desenvolvendo um sistema de gerenciamento de transações do banco BlueBanck em API REST com Spring Boot</h2>
 
 Durante esse projeto será desenvolvidos e abordados os seguintes tópicos:
