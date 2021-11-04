@@ -1,42 +1,64 @@
 package com.bluebank.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.bluebank.model.Conta;
+import com.bluebank.dto.ContaDTO;
+import com.bluebank.entities.Conta;
+import com.bluebank.mapper.ContaMapper;
 import com.bluebank.repository.ContaRepository;
-import com.bluebank.repository.ContaRepository;
+import com.bluebank.service.exceptions.DatabaseException;
+import com.bluebank.service.exceptions.ResourceNotFoundException;
 
 @Service
 public class ContaService {
-	
+
 	@Autowired
 	private ContaRepository contaRepository;
-	
-	
-	
-	public List<Conta> findAll() {
-		
-		return contaRepository.findAll();
+
+	@Autowired
+	private ContaMapper contaMapper;
+
+	@Transactional(readOnly = true)
+	public Page<ContaDTO> findAll(Pageable pageable) {
+		return contaRepository.findAll(pageable).map(conta -> contaMapper.toDto(conta));
 	}
-	
-	
-	
-	public Optional<Conta> findAll(Integer id) {
-		
-		return contaRepository.findById(id);
+
+	@Transactional(readOnly = true)
+	public ContaDTO findById(Long id) {
+		return contaMapper.toDto(contaRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Conta não encontrado! Id = " + id)));
 	}
-	
-	public void deletar(Integer id) {
-		
-		contaRepository.deleteById(id);
+
+	@Transactional
+	public ContaDTO insert(ContaDTO dto) {
+		return contaMapper.toDto(contaRepository.save(contaMapper.toEntity(dto)));
 	}
-	
-	public void save(Conta conta) {
-		contaRepository.save(conta);
+
+	@Transactional
+	public ContaDTO update(Long id, ContaDTO dto) {
+			Conta conta = contaRepository.findById(id).orElseThrow(() ->
+			new ResourceNotFoundException("Conta não encontrado! Id = " + id));
+			dto.setId(conta.getId());
+			return contaMapper
+					.toDto(contaRepository
+							.save(contaMapper
+									.toEntity(dto)));
 	}
-	
+
+	public void delete(Long id) {
+		try {
+			contaRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Conta não encontrado! Id = " + id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		}
+	}
 }
