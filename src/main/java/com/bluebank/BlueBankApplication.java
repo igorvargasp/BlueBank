@@ -34,27 +34,7 @@ public class BlueBankApplication implements CommandLineRunner {
 		@Override
 		public void run(String... args) {
 			
-			Conta conta = new Conta(1,1245124,0002,5000,2500,"corrente", null);
-			contaService.save(conta);
-			
-			Date date1 = new Date(1997,06,11);
-			
-			
-			Cliente cliente = new Cliente(1, "88888888888", conta,"Igor Vargas", date1,"Fisico","igorvargas","9751248", 5000);
-			conta.setCliente(cliente);
-			
-			clienteService.save(cliente);
-			conta.setCliente(cliente);
-			
-			
-		    
-			
-			StringBuilder dados = new StringBuilder();
-			dados.append(conta.getConta()+"\n").append(conta.getTipoConta()+"\n").append(conta.getAgencia()+"\n");
 
-			System.out.println("---Conta---\n" + dados.toString());
-		
-			//Cliente cliente = new Cliente(7,"031.202.260-49","Igor Vargas", date1,"Fisico","igorvargas","9751248", 5000);
 		}
 
 }
