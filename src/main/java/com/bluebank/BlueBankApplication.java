@@ -57,7 +57,15 @@ public class BlueBankApplication implements CommandLineRunner {
 		clienteRepository.save(cliente);
 		contaRepository.save(conta);
 		
+
 		
 	}
+=======
+		@Override
+		public void run(String... args) {
+			
+
+		}
+
 
 }
