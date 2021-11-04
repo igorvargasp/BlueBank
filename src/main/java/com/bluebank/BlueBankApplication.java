@@ -60,12 +60,7 @@ public class BlueBankApplication implements CommandLineRunner {
 
 		
 	}
-=======
-		@Override
-		public void run(String... args) {
-			
 
-		}
 
 
 }
