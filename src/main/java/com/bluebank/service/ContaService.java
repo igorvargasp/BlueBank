@@ -13,6 +13,7 @@ import com.bluebank.entities.Conta;
 import com.bluebank.mapper.ContaMapper;
 import com.bluebank.repository.ContaRepository;
 import com.bluebank.service.exceptions.DatabaseException;
+import com.bluebank.service.exceptions.InsufficientFundsException;
 import com.bluebank.service.exceptions.ResourceNotFoundException;
 
 @Service
@@ -60,5 +61,33 @@ public class ContaService {
 		catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity violation");
 		}
+	}
+	
+	public boolean hasLimit(ContaDTO conta, Double montante) {
+		double limite = conta.getSaldo() + conta.getLimiteCredito();
+		if ( limite >= montante) {
+			return true;
+		}
+		throw new InsufficientFundsException("Este montante excede seu limite.");
+	}
+	
+	public ContaDTO withdraw (ContaDTO conta, Double montante) {
+		double saldo = conta.getSaldo();
+		double limite = conta.getLimiteCredito();
+		
+		if (montante > saldo) {
+			double aux = montante - saldo;
+			conta.setSaldo(0.0);
+			conta.setLimiteCredito(limite - aux);
+			return conta;
+		}
+		conta.setSaldo(saldo - montante);
+		
+		return conta;
+	}
+
+	public ContaDTO deposit(ContaDTO contaDestino, Double montante) {
+		contaDestino.setSaldo(contaDestino.getSaldo() + montante);
+		return contaDestino;
 	}
 }
