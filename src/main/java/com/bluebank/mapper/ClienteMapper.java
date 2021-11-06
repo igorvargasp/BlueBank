@@ -26,7 +26,7 @@ public class ClienteMapper {
 				.build();
 	}
 	
-	public Cliente toEntitiesWithContas (ClienteDTO dto) {
+	public Cliente toEntityWithContas (ClienteDTO dto) {
 		Cliente cliente = Cliente
 				.builder()
 				.id(dto.getId())

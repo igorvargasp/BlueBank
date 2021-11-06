@@ -28,11 +28,13 @@ public class ContaController {
 
 	@GetMapping
 	public ResponseEntity<Page<ContaDTO>> findAll(Pageable pageable) {
+		
 		return ResponseEntity.ok(contaService.findAll(pageable));
 	}
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ContaDTO> findById(@PathVariable Long id) {
+		
 		return ResponseEntity.ok(contaService.findById(id));
 	}
 
@@ -40,17 +42,20 @@ public class ContaController {
 	public ResponseEntity<ContaDTO> insert(@RequestBody ContaDTO dto) {
 		dto = contaService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+		
 		return ResponseEntity.created(uri).body(dto);
 	}
 
 	@PutMapping(path = "/{id}")
 	public ResponseEntity<ContaDTO> update(@PathVariable Long id, @RequestBody ContaDTO dto) {
+		
 		return ResponseEntity.ok(contaService.update(id, dto));
 	}
 
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<ContaDTO> delete(@PathVariable Long id) {
 		contaService.delete(id);
+		
 		return ResponseEntity.noContent().build();
 	}
 }

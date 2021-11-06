@@ -18,14 +18,9 @@ public class TransacaoDTO implements Serializable {
 
 	@EqualsAndHashCode.Include
 	private Long id;
-	
 	private Double montante;
-	
 	private String tipoTransacao;
-	
 	private String status;
-	
 	private Long origem_id;
-	
 	private Long destino_id;
 }

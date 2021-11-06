@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,7 +47,14 @@ public class Cliente implements Serializable {
 	private String email;
 	private String telefone;
 	private Double rendaMensal;
-	private Instant momento;
+	
+	@CreatedDate
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant criadoEm;
+	
+	@LastModifiedDate
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant atualizadoEm;
 	
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
 	private Set<Conta> contas;
@@ -54,73 +65,4 @@ public class Cliente implements Serializable {
 		}
 		return contas;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getNomeCompleto() {
-		return nomeCompleto;
-	}
-
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public String getTipoCliente() {
-		return tipoCliente;
-	}
-
-	public void setTipoCliente(String tipoCliente) {
-		this.tipoCliente = tipoCliente;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public Double getRendaMensal() {
-		return rendaMensal;
-	}
-
-	public void setRendaMensal(Double rendaMensal) {
-		this.rendaMensal = rendaMensal;
-	}
-
-	public void setContas(Set<Conta> contas) {
-		this.contas = contas;
-	}
-	
 }
