@@ -14,6 +14,7 @@ import com.bluebank.mapper.ContaMapper;
 import com.bluebank.repository.ContaRepository;
 import com.bluebank.service.exceptions.DatabaseException;
 import com.bluebank.service.exceptions.InsufficientFundsException;
+import com.bluebank.service.exceptions.InvalidDataException;
 import com.bluebank.service.exceptions.ResourceNotFoundException;
 
 @Service
@@ -88,6 +89,14 @@ public class ContaService {
 
 	public ContaDTO deposit(ContaDTO contaDestino, Double montante) {
 		contaDestino.setSaldo(contaDestino.getSaldo() + montante);
+		
 		return contaDestino;
+	}
+
+	public boolean isAmountValid(Double montante) {
+		if (montante < 0.0) {
+			throw new InvalidDataException("O valor deve ser maior que zero.");
+		}
+		return true;
 	}
 }

@@ -1,6 +1,7 @@
 package com.bluebank.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -42,7 +43,8 @@ public class Cliente implements Serializable {
 	private String email;
 	private String telefone;
 	private Double rendaMensal;
-
+	private Instant momento;
+	
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
 	private Set<Conta> contas;
 
