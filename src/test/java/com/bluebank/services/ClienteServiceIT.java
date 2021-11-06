@@ -24,6 +24,7 @@ public class ClienteServiceIT {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private ClienteRepository clienteRepository;
 	

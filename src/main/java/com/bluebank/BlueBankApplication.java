@@ -10,8 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bluebank.entities.Cliente;
 import com.bluebank.entities.Conta;
+import com.bluebank.entities.Transacao;
 import com.bluebank.repository.ClienteRepository;
 import com.bluebank.repository.ContaRepository;
+import com.bluebank.repository.TransacaoRepository;
 
 @SpringBootApplication
 public class BlueBankApplication implements CommandLineRunner {
@@ -21,6 +23,9 @@ public class BlueBankApplication implements CommandLineRunner {
 
 	@Autowired
 	private ContaRepository contaRepository;
+	
+	@Autowired
+	private TransacaoRepository transacaoRepository;
 
 	public static void main(String[] args) {
 
@@ -89,7 +94,17 @@ public class BlueBankApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cliente, cliente2));
 		contaRepository.saveAll(Arrays.asList(conta, conta2, conta3));
 		
-
+		Transacao t1 = Transacao
+				.builder()
+				.id(null)
+				.montante(1000.00)
+				.tipoTransacao("Pix")
+				.status("Pendente")
+				.origem(conta2)
+				.destino(conta)
+				.build();
+		
+		transacaoRepository.save(t1);
 		
 	}
 
