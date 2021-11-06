@@ -38,29 +38,29 @@ public class BlueBankApplication implements CommandLineRunner {
 
 		Conta conta = Conta.builder()
 				.id(null)
-				.conta(88888L)
-				.agencia(777L)
+				.conta(100001L)
+				.agencia(101L)
 				.saldo(700.00)
 				.limiteCredito(1000.00)
-				.tipoConta("PF")
+				.tipoConta("Corrente")
 				.build();
 		
 		Conta conta2= Conta.builder()
 				.id(null)
-				.conta(88888L)
-				.agencia(777L)
-				.saldo(700.00)
-				.limiteCredito(1000.00)
-				.tipoConta("PF")
+				.conta(20002L)
+				.agencia(202L)
+				.saldo(800.00)
+				.limiteCredito(2000.00)
+				.tipoConta("Poupaça")
 				.build();
 		
 		Conta conta3 = Conta.builder()
 				.id(null)
-				.conta(88888L)
-				.agencia(777L)
-				.saldo(700.00)
-				.limiteCredito(1000.00)
-				.tipoConta("PF")
+				.conta(30003L)
+				.agencia(303L)
+				.saldo(900.00)
+				.limiteCredito(3000.00)
+				.tipoConta("Corrente")
 				.build();
 
 		Cliente cliente = Cliente.builder()

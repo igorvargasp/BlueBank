@@ -37,8 +37,8 @@ public class TransacaoMapper {
 				.montante(transacao.getMontante())
 				.tipoTransacao(transacao.getTipoTransacao())
 				.status(transacao.getStatus())
-				.origem_id(transacao.getId())
-				.destino_id(transacao.getId())
+				.origem_id(transacao.getOrigem().getId())
+				.destino_id(transacao.getDestino().getId())
 				.build();
 	}
 }
