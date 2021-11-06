@@ -26,17 +26,20 @@ public class ClienteService {
 
 	@Transactional(readOnly = true)
 	public Page<ClienteDTO> findAll(Pageable pageable) {
+		
 		return clienteRepository.findAll(pageable).map(cliente -> clienteMapper.toDto(cliente));
 	}
 
 	@Transactional(readOnly = true)
 	public ClienteDTO findById(Long id) {
+		
 		return clienteMapper.toDtoWithContas(clienteRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado! Id = " + id)));
 	}
 
 	@Transactional
 	public ClienteDTO insert(ClienteDTO dto) {
+		
 		return clienteMapper.toDto(clienteRepository.save(clienteMapper.toEntity(dto)));
 	}
 
@@ -45,6 +48,7 @@ public class ClienteService {
 			Cliente cliente = clienteRepository.findById(id).orElseThrow(() ->
 			new ResourceNotFoundException("Cliente não encontrado! Id = " + id));
 			dto.setId(cliente.getId());
+			
 			return clienteMapper
 					.toDto(clienteRepository
 							.save(clienteMapper
@@ -55,9 +59,11 @@ public class ClienteService {
 		try {
 			clienteRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
+			
 			throw new ResourceNotFoundException("Cliente não encontrado! Id = " + id);
 		}
 		catch (DataIntegrityViolationException e) {
+			
 			throw new DatabaseException("Integrity violation");
 		}
 	}

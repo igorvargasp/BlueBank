@@ -27,23 +27,19 @@ public class TransacaoController {
 
 	@GetMapping
 	public ResponseEntity<Page<TransacaoDTO>> findAll(Pageable pageable) {
+		
 		return ResponseEntity.ok(transacaoService.findAll(pageable));
 	}
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TransacaoDTO> findById(@PathVariable Long id) {
+		
 		return ResponseEntity.ok(transacaoService.findById(id));
-	}
-
-	@PostMapping
-	public ResponseEntity<TransacaoDTO> insert(@RequestBody TransacaoDTO dto) {
-		dto = transacaoService.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-		return ResponseEntity.created(uri).body(dto);
 	}
 
 	@PatchMapping(path = "/{id}")
 	public ResponseEntity<TransacaoDTO> updateStatus(@PathVariable Long id, @RequestBody TransacaoDTO dto) {
+		
 		return ResponseEntity.ok(transacaoService.updateStatus(id, dto));
 	}
 	
@@ -52,6 +48,7 @@ public class TransacaoController {
 			@RequestBody TransacaoDTO data) {
 		TransacaoDTO dto = transacaoService.transferFunds(origemId, destinoId, data.getMontante(), data.getTipoTransacao());
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+		
 		return ResponseEntity.created(uri).body(dto);
 	}
 

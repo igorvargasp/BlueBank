@@ -1,5 +1,9 @@
 package com.bluebank.entities;
 
+import java.io.Serializable;
+import java.time.Instant;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.lang.NonNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +29,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Conta {
-
+public class Conta implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
@@ -32,8 +41,17 @@ public class Conta {
 	private Double saldo;
 	private Double limiteCredito;
 	private String tipoConta;
+	
+	@CreatedDate
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant criadoEm;
+	
+	@LastModifiedDate
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant atualizadoEm;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
+	@NonNull
 	private Cliente cliente;
 }

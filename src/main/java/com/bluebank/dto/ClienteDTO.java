@@ -1,5 +1,6 @@
 package com.bluebank.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +16,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ClienteDTO {
-
+public class ClienteDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@EqualsAndHashCode.Include
 	private Long id;
 	private String cpf;

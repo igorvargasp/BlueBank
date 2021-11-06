@@ -1,5 +1,7 @@
 package com.bluebank.dto;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ContaDTO {
+public class ContaDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@EqualsAndHashCode.Include
 	private Long id;

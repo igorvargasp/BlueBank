@@ -34,34 +34,6 @@ public class BlueBankApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-			
-		
-		Conta conta = Conta.builder()
-				.id(null)
-				.conta(100001L)
-				.agencia(101L)
-				.saldo(700.00)
-				.limiteCredito(1000.00)
-				.tipoConta("Corrente")
-				.build();
-		
-		Conta conta2= Conta.builder()
-				.id(null)
-				.conta(20002L)
-				.agencia(202L)
-				.saldo(800.00)
-				.limiteCredito(2000.00)
-				.tipoConta("Corrente")
-				.build();
-		
-		Conta conta3 = Conta.builder()
-				.id(null)
-				.conta(30003L)
-				.agencia(303L)
-				.saldo(900.00)
-				.limiteCredito(3000.00)
-				.tipoConta("Corrente")
-				.build();
 
 		Cliente cliente = Cliente.builder()
 				.id(null)
@@ -85,9 +57,36 @@ public class BlueBankApplication implements CommandLineRunner {
 				.rendaMensal(3570.00)
 				.build();
 		
-		conta.setCliente(cliente);
-		conta2.setCliente(cliente);
-		conta3.setCliente(cliente2);
+		Conta conta = Conta.builder()
+				.id(null)
+				.conta(100001L)
+				.agencia(101L)
+				.saldo(700.00)
+				.limiteCredito(1000.00)
+				.tipoConta("Corrente")
+				.cliente(cliente)
+				.build();
+		
+		Conta conta2= Conta.builder()
+				.id(null)
+				.conta(20002L)
+				.agencia(202L)
+				.saldo(800.00)
+				.limiteCredito(2000.00)
+				.tipoConta("Corrente")
+				.cliente(cliente)
+				.build();
+		
+		Conta conta3 = Conta.builder()
+				.id(null)
+				.conta(30003L)
+				.agencia(303L)
+				.saldo(900.00)
+				.limiteCredito(3000.00)
+				.tipoConta("Corrente")
+				.cliente(cliente2)
+				.build();
+		
 		cliente.getContas().add(conta);
 		cliente.getContas().add(conta2);
 		cliente.getContas().add(conta3);

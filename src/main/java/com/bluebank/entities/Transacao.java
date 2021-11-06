@@ -1,13 +1,19 @@
 package com.bluebank.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,16 +35,21 @@ public class Transacao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Long id;
-	
 	private Double montante;
-	
 	private String tipoTransacao;
-	
 	private String status;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Conta origem;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Conta destino;
+	
+	@CreatedDate
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant criadoEm;
+	
+	@LastModifiedDate
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant atualizadoEm;
 }
