@@ -3,6 +3,7 @@ package com.bluebank.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bluebank.dto.ContaDTO;
 import com.bluebank.dto.TransacaoDTO;
 import com.bluebank.entities.Transacao;
 import com.bluebank.service.ContaService;
@@ -28,6 +29,24 @@ public class TransacaoMapper {
 				.destino(contaMapper
 						.toEntity(contaService
 								.findById(dto.getDestino_id())))
+				.build();
+	}
+	
+	public Transacao createPrePersistenceEntityWithProvidedAccounts (
+			Double montante,
+			String tipoTransacao,
+			ContaDTO origem,
+			ContaDTO destino
+			) {
+		return Transacao.builder()
+				.id(null)
+				.montante(montante)
+				.tipoTransacao(tipoTransacao)
+				.status("Concluído")
+				.origem(contaMapper
+						.toEntity(origem))
+				.destino(contaMapper
+						.toEntity(destino))
 				.build();
 	}
 	

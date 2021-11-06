@@ -10,10 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bluebank.entities.Cliente;
 import com.bluebank.entities.Conta;
-import com.bluebank.entities.Transacao;
 import com.bluebank.repository.ClienteRepository;
 import com.bluebank.repository.ContaRepository;
-import com.bluebank.repository.TransacaoRepository;
+import com.bluebank.service.TransacaoService;
 
 @SpringBootApplication
 public class BlueBankApplication implements CommandLineRunner {
@@ -25,7 +24,7 @@ public class BlueBankApplication implements CommandLineRunner {
 	private ContaRepository contaRepository;
 	
 	@Autowired
-	private TransacaoRepository transacaoRepository;
+	private TransacaoService transacaoService;
 
 	public static void main(String[] args) {
 
@@ -35,7 +34,8 @@ public class BlueBankApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-
+			
+		
 		Conta conta = Conta.builder()
 				.id(null)
 				.conta(100001L)
@@ -51,7 +51,7 @@ public class BlueBankApplication implements CommandLineRunner {
 				.agencia(202L)
 				.saldo(800.00)
 				.limiteCredito(2000.00)
-				.tipoConta("Poupaça")
+				.tipoConta("Corrente")
 				.build();
 		
 		Conta conta3 = Conta.builder()
@@ -94,18 +94,7 @@ public class BlueBankApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cliente, cliente2));
 		contaRepository.saveAll(Arrays.asList(conta, conta2, conta3));
 		
-		Transacao t1 = Transacao
-				.builder()
-				.id(null)
-				.montante(1000.00)
-				.tipoTransacao("Pix")
-				.status("Pendente")
-				.origem(conta2)
-				.destino(conta)
-				.build();
-		
-		transacaoRepository.save(t1);
-		
+		transacaoService.transferFunds(conta2.getId(), conta.getId(), 1000.00, "Pix");
 	}
 
 

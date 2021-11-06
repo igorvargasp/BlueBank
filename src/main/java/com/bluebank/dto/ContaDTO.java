@@ -1,5 +1,7 @@
 package com.bluebank.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +23,6 @@ public class ContaDTO {
 	private Double limiteCredito;
 	private String tipoConta;
 	
+	@JsonIgnore
 	private ClienteDTO cliente;
 }
