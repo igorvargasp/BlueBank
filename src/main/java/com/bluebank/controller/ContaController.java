@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.bluebank.dto.ContaDTO;
+import com.bluebank.dto.TransacaoDTO;
 import com.bluebank.service.ContaService;
 
 @RestController
@@ -30,6 +31,12 @@ public class ContaController {
 	public ResponseEntity<Page<ContaDTO>> findAll(Pageable pageable) {
 		
 		return ResponseEntity.ok(contaService.findAll(pageable));
+	}
+	
+	@GetMapping(path = "/cliente/{id}")
+	public ResponseEntity<Page<ContaDTO>> findAllByClienteId(Pageable pageable, @PathVariable Long id) {
+		
+		return ResponseEntity.ok(contaService.findAllByClienteId(pageable, id));
 	}
 
 	@GetMapping(value = "/{id}")
@@ -47,15 +54,27 @@ public class ContaController {
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<ContaDTO> update(@PathVariable Long id, @RequestBody ContaDTO dto) {
+	public ResponseEntity<ContaDTO> updateLimit(@PathVariable Long id, @RequestBody ContaDTO dto) {
 		
-		return ResponseEntity.ok(contaService.update(id, dto));
+		return ResponseEntity.ok(contaService.updateLimit(id, dto));
 	}
 
-	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<ContaDTO> delete(@PathVariable Long id) {
-		contaService.delete(id);
+	@PatchMapping(path = "/{id}")
+	public ResponseEntity<ContaDTO> disable(@PathVariable Long id) {
 		
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok(contaService.disable(id));
+	}
+	
+	@PostMapping(path = "/{origemId}/transfer/{destinoId}")
+	public ResponseEntity<TransacaoDTO> transferFunds(
+			@PathVariable Long origemId,
+			@PathVariable Long destinoId,
+			@RequestBody TransacaoDTO data
+			) 
+	{
+		TransacaoDTO dto = contaService.transferFunds(origemId, destinoId, data.getMontante(), data.getTipoTransacao());
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+		
+		return ResponseEntity.created(uri).body(dto);
 	}
 }

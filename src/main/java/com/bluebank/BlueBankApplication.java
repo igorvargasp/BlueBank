@@ -1,5 +1,6 @@
 package com.bluebank;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -12,7 +13,7 @@ import com.bluebank.entities.Cliente;
 import com.bluebank.entities.Conta;
 import com.bluebank.repository.ClienteRepository;
 import com.bluebank.repository.ContaRepository;
-import com.bluebank.service.TransacaoService;
+import com.bluebank.service.ContaService;
 
 @SpringBootApplication
 public class BlueBankApplication implements CommandLineRunner {
@@ -24,7 +25,7 @@ public class BlueBankApplication implements CommandLineRunner {
 	private ContaRepository contaRepository;
 	
 	@Autowired
-	private TransacaoService transacaoService;
+	private ContaService contaService;
 
 	public static void main(String[] args) {
 
@@ -44,6 +45,7 @@ public class BlueBankApplication implements CommandLineRunner {
 				.email("joao@gmail.com")
 				.telefone("(88)987541236")
 				.rendaMensal(3570.00)
+				.criadoEm(Instant.now())
 				.build();
 		
 		Cliente cliente2 = Cliente.builder()
@@ -55,6 +57,7 @@ public class BlueBankApplication implements CommandLineRunner {
 				.email("marcos@gmail.com")
 				.telefone("(88)987541236")
 				.rendaMensal(3570.00)
+				.criadoEm(Instant.now())
 				.build();
 		
 		Conta conta = Conta.builder()
@@ -65,6 +68,7 @@ public class BlueBankApplication implements CommandLineRunner {
 				.limiteCredito(1000.00)
 				.tipoConta("Corrente")
 				.cliente(cliente)
+				.criadoEm(Instant.now())
 				.build();
 		
 		Conta conta2= Conta.builder()
@@ -75,6 +79,7 @@ public class BlueBankApplication implements CommandLineRunner {
 				.limiteCredito(2000.00)
 				.tipoConta("Corrente")
 				.cliente(cliente)
+				.criadoEm(Instant.now())
 				.build();
 		
 		Conta conta3 = Conta.builder()
@@ -85,6 +90,7 @@ public class BlueBankApplication implements CommandLineRunner {
 				.limiteCredito(3000.00)
 				.tipoConta("Corrente")
 				.cliente(cliente2)
+				.criadoEm(Instant.now())
 				.build();
 		
 		cliente.getContas().add(conta);
@@ -93,7 +99,7 @@ public class BlueBankApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cliente, cliente2));
 		contaRepository.saveAll(Arrays.asList(conta, conta2, conta3));
 		
-		transacaoService.transferFunds(conta2.getId(), conta.getId(), 1000.00, "Pix");
+		contaService.transferFunds(conta2.getId(), conta.getId(), 1000.00, "Pix");
 	}
 
 

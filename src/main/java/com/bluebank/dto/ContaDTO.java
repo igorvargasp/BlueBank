@@ -1,6 +1,7 @@
 package com.bluebank.dto;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,7 +26,17 @@ public class ContaDTO implements Serializable {
 	private Double saldo;
 	private Double limiteCredito;
 	private String tipoConta;
-	
+	private String status;
+	private Instant criadoEm;
+	private Instant atualizadoEm;
 	@JsonIgnore
 	private ClienteDTO cliente;
+	
+	public Instant getAtualizadoEm() {
+		if (this.atualizadoEm == null) {
+			this.atualizadoEm = this.criadoEm;
+		}
+		
+		return this.atualizadoEm;
+	}
 }

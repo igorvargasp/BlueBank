@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bluebank.dto.TransacaoDTO;
-import com.bluebank.entities.Conta;
 import com.bluebank.entities.Transacao;
 import com.bluebank.mapper.TransacaoMapper;
-import com.bluebank.repository.ContaRepository;
 import com.bluebank.repository.TransacaoRepository;
 import com.bluebank.service.exceptions.ResourceNotFoundException;
 
@@ -21,13 +19,10 @@ public class TransacaoService {
 	private TransacaoRepository transacaoRepository;
 	
 	@Autowired
-	private ContaService contaService;
+	private TransacaoMapper transacaoMapper;
 	
 	@Autowired
-	private ContaRepository contaRepository;
-
-	@Autowired
-	private TransacaoMapper transacaoMapper;
+	private ContaService contaService;
 	
 	@Transactional(readOnly = true)
 	public Page<TransacaoDTO> findAll(Pageable pageable) {
@@ -63,26 +58,8 @@ public class TransacaoService {
 	}
 	
 	@Transactional
-	public TransacaoDTO transferFunds(Long origemId, Long destinoId, Double montante, String tipoTransacao) {
-		Conta contaOrigem = contaRepository.findById(origemId)
-				.orElseThrow(() -> new ResourceNotFoundException("Conta não encontrado! Id = " + origemId));;
-		Conta contaDestino = contaRepository.findById(destinoId)
-				.orElseThrow(() -> new ResourceNotFoundException("Conta não encontrado! Id = " + destinoId));;
+	public TransacaoDTO transferFunds(Long contaOrigemId, Long contaDestinoId, Double montante, String tipoTransacao) {
 		
-		contaService.isAmountValid(montante);
-		contaService.hasLimit(contaOrigem, montante);
-		contaOrigem = contaService.withdraw(contaOrigem, montante);
-		contaDestino = contaService.deposit(contaDestino, montante);
-		
-		return transacaoMapper.toDto(transacaoRepository
-				.save(transacaoMapper
-						.createPrePersistenceEntityWithProvidedAccounts(
-								montante,
-								tipoTransacao,
-								contaOrigem,
-								contaDestino
-								)
-						)
-				);
+		return contaService.transferFunds(contaOrigemId, contaDestinoId, montante, tipoTransacao);
 	}
 }

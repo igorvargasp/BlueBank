@@ -21,6 +21,9 @@ public class ContaMapper {
 				.limiteCredito(dto.getLimiteCredito())
 				.tipoConta(dto.getTipoConta())
 				.cliente(clienteMapper.toEntity(dto.getCliente()))
+				.status(dto.getStatus())
+				.criadoEm(dto.getCriadoEm())
+				.atualizadoEm(dto.getAtualizadoEm())
 				.build();
 	}
 	
@@ -33,6 +36,9 @@ public class ContaMapper {
 				.limiteCredito(conta.getLimiteCredito())
 				.tipoConta(conta.getTipoConta())
 				.cliente(clienteMapper.toDto(conta.getCliente()))
+				.status(conta.getStatus())
+				.criadoEm(conta.getCriadoEm())
+				.atualizadoEm(conta.getAtualizadoEm())
 				.build();
 	}
 	

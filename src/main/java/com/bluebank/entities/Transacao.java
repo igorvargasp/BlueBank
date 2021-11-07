@@ -55,7 +55,7 @@ public class Transacao implements Serializable {
 	
 	public Instant getAtualizadoEm() {
 		if (this.atualizadoEm == null) {
-			return this.criadoEm;
+			this.atualizadoEm = this.criadoEm;
 		}
 		
 		return this.atualizadoEm;

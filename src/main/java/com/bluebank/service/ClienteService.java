@@ -1,5 +1,8 @@
 package com.bluebank.service;
 
+import java.time.Instant;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,8 +15,12 @@ import com.bluebank.dto.ClienteDTO;
 import com.bluebank.entities.Cliente;
 import com.bluebank.mapper.ClienteMapper;
 import com.bluebank.repository.ClienteRepository;
+import com.bluebank.service.exceptions.BusinessException;
 import com.bluebank.service.exceptions.DatabaseException;
 import com.bluebank.service.exceptions.ResourceNotFoundException;
+
+import br.com.caelum.stella.ValidationMessage;
+import br.com.caelum.stella.validation.CPFValidator;
 
 @Service
 public class ClienteService {
@@ -36,10 +43,19 @@ public class ClienteService {
 		return clienteMapper.toDtoWithContas(clienteRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado! Id = " + id)));
 	}
-
+	
+	@Transactional(readOnly = true)
+	public ClienteDTO findClienteByContaId(Long id) {
+		return new ClienteDTO();
+	}
+	
 	@Transactional
 	public ClienteDTO insert(ClienteDTO dto) {
-		
+				isClient(dto.getCpf());
+				isCpfValido(dto.getCpf());
+				dto.setCriadoEm(Instant.now());
+				dto.setAtualizadoEm(Instant.now());
+				
 		return clienteMapper.toDto(clienteRepository.save(clienteMapper.toEntity(dto)));
 	}
 
@@ -48,6 +64,9 @@ public class ClienteService {
 			Cliente cliente = clienteRepository.findById(id).orElseThrow(() ->
 			new ResourceNotFoundException("Cliente não encontrado! Id = " + id));
 			dto.setId(cliente.getId());
+			dto.setCpf(cliente.getCpf());
+			dto.setCriadoEm(cliente.getCriadoEm());
+			dto.setAtualizadoEm(Instant.now());
 			
 			return clienteMapper
 					.toDto(clienteRepository
@@ -65,6 +84,22 @@ public class ClienteService {
 		catch (DataIntegrityViolationException e) {
 			
 			throw new DatabaseException("Integrity violation");
+		}
+	}
+	
+	private boolean isCpfValido(String cpf) { 
+		CPFValidator cpfValidator = new CPFValidator(); 
+		List<ValidationMessage> erros = cpfValidator.invalidMessagesFor(cpf); 
+		if(erros.size() > 0) {
+			throw new BusinessException("CPF inválido!");
+		}
+		
+		return true;
+	}
+	
+	private void isClient(String cpf) {
+		if(clienteRepository.existsByCpf(cpf)) {
+			throw new BusinessException("Cliente já cadastrado!");
 		}
 	}
 }

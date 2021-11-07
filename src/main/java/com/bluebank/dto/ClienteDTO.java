@@ -1,9 +1,12 @@
 package com.bluebank.dto;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +31,9 @@ public class ClienteDTO implements Serializable {
 	private String email;
 	private String telefone;
 	private Double rendaMensal;
-	
+	private Instant criadoEm;
+	private Instant atualizadoEm;
+	@JsonIgnore
 	private Set<ContaDTO> contas;
 	
 	public Set<ContaDTO> getContas() {
@@ -36,5 +41,13 @@ public class ClienteDTO implements Serializable {
 			return new HashSet<>();
 		}
 		return contas;
+	}
+	
+	public Instant getAtualizadoEm() {
+		if (this.atualizadoEm == null) {
+			this.atualizadoEm = this.criadoEm;
+		}
+		
+		return this.atualizadoEm;
 	}
 }
