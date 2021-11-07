@@ -39,7 +39,6 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Long id;
-
 	private String cpf;
 	private String nomeCompleto;
 	private LocalDate dataNascimento;

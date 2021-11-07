@@ -43,8 +43,8 @@ public class Factory {
 	public static Conta createConta () {
 		return Conta.builder()
 				.id(null)
-				.conta(88888L)
-				.agencia(777L)
+				.conta("88888")
+				.agencia("777")
 				.saldo(700.00)
 				.limiteCredito(1000.00)
 				.tipoConta("PF")

@@ -38,10 +38,17 @@ public class TransacaoService {
 	}
 
 	@Transactional(readOnly = true)
-	public TransacaoDTO findById(Long id) {
+	public TransacaoDTO findByTransacaoId(Long id) {
 		
 		return transacaoMapper.toDto(transacaoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Transacao não encontrada! Id = " + id)));
+				.orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada! Id = " + id)));
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<TransacaoDTO> findByContaOrigemId(Pageable pageable, Long id) {
+		
+		return transacaoRepository.findByContaOrigemId(pageable, id)
+				.map(transacao -> transacaoMapper.toDto(transacao));
 	}
 
 	@Transactional

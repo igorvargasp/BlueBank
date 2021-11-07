@@ -40,10 +40,10 @@ public class Transacao implements Serializable {
 	private String status;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	private Conta origem;
+	private Conta contaOrigem;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	private Conta destino;
+	private Conta contaDestino;
 	
 	@CreatedDate
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -52,4 +52,12 @@ public class Transacao implements Serializable {
 	@LastModifiedDate
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant atualizadoEm;
+	
+	public Instant getAtualizadoEm() {
+		if (this.atualizadoEm == null) {
+			return this.criadoEm;
+		}
+		
+		return this.atualizadoEm;
+	}
 }
