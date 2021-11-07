@@ -15,7 +15,8 @@ public class ClienteMapper {
 	ContaMapper contaMapper;
 	
 	public Cliente toEntity (ClienteDTO dto) {
-		return Cliente.builder().id(dto.getId())
+		return Cliente.builder()
+				.id(dto.getId())
 				.cpf(dto.getCpf())
 				.nomeCompleto(dto.getNomeCompleto())
 				.dataNascimento(dto.getDataNascimento())
@@ -23,6 +24,8 @@ public class ClienteMapper {
 				.email(dto.getEmail())
 				.telefone(dto.getTelefone())
 				.rendaMensal(dto.getRendaMensal())
+				.criadoEm(dto.getCriadoEm())
+				.atualizadoEm(dto.getAtualizadoEm())
 				.build();
 	}
 	
@@ -37,6 +40,8 @@ public class ClienteMapper {
 				.email(dto.getEmail())
 				.telefone(dto.getTelefone())
 				.rendaMensal(dto.getRendaMensal())
+				.criadoEm(dto.getCriadoEm())
+				.atualizadoEm(dto.getAtualizadoEm())
 				.build();
 		cliente.getContas().clear();
 		cliente.setContas(dto
@@ -57,6 +62,8 @@ public class ClienteMapper {
 				.email(cliente.getEmail())
 				.telefone(cliente.getTelefone())
 				.rendaMensal(cliente.getRendaMensal())
+				.criadoEm(cliente.getCriadoEm())
+				.atualizadoEm(cliente.getAtualizadoEm())
 				.build();
 	}
 	
@@ -71,6 +78,8 @@ public class ClienteMapper {
 				.email(cliente.getEmail())
 				.telefone(cliente.getTelefone())
 				.rendaMensal(cliente.getRendaMensal())
+				.criadoEm(cliente.getCriadoEm())
+				.atualizadoEm(cliente.getAtualizadoEm())
 				.build();
 		dto.getContas().clear();
 		dto.setContas(cliente

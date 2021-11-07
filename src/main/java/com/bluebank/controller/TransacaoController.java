@@ -51,15 +51,14 @@ public class TransacaoController {
 	
 	@PostMapping(path = "/{origemId}/{destinoId}")
 	public ResponseEntity<TransacaoDTO> transferFunds(
-			@PathVariable Long origemId,
-			@PathVariable Long destinoId,
+			@PathVariable Long contaOrigemId,
+			@PathVariable Long contaDestinoId,
 			@RequestBody TransacaoDTO data
 			) 
 	{
-		TransacaoDTO dto = transacaoService.transferFunds(origemId, destinoId, data.getMontante(), data.getTipoTransacao());
+		TransacaoDTO dto = transacaoService.transferFunds(contaOrigemId, contaDestinoId, data.getMontante(), data.getTipoTransacao());
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(dto);
 	}
-
 }

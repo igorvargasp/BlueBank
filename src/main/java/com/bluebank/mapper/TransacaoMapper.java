@@ -27,10 +27,10 @@ public class TransacaoMapper {
 				.status(dto.getStatus())
 				.contaOrigem(contaMapper
 						.toEntity(contaService
-								.findById(dto.getOrigem_id())))
+								.findById(dto.getContaOrigem_id())))
 				.contaDestino(contaMapper
 						.toEntity(contaService
-								.findById(dto.getDestino_id())))
+								.findById(dto.getContaDestino_id())))
 				.criadoEm(dto.getCriadoEm())
 				.atualizadoEm(dto.getAtualizadoEm())
 				.build();
@@ -59,8 +59,8 @@ public class TransacaoMapper {
 				.montante(transacao.getMontante())
 				.tipoTransacao(transacao.getTipoTransacao())
 				.status(transacao.getStatus())
-				.origem_id(transacao.getContaOrigem().getId())
-				.destino_id(transacao.getContaDestino().getId())
+				.contaOrigem_id(transacao.getContaOrigem().getId())
+				.contaDestino_id(transacao.getContaDestino().getId())
 				.criadoEm(transacao.getCriadoEm())
 				.atualizadoEm(transacao.getAtualizadoEm())
 				.build();

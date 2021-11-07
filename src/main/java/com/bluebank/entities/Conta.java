@@ -41,6 +41,7 @@ public class Conta implements Serializable {
 	private Double saldo;
 	private Double limiteCredito;
 	private String tipoConta;
+	private String status;
 	
 	@CreatedDate
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -54,4 +55,12 @@ public class Conta implements Serializable {
 	@JoinColumn(name = "cliente_id")
 	@NonNull
 	private Cliente cliente;
+	
+	public Instant getAtualizadoEm() {
+		if (this.atualizadoEm == null) {
+			this.atualizadoEm = this.criadoEm;
+		}
+		
+		return this.atualizadoEm;
+	}
 }

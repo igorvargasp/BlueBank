@@ -64,4 +64,12 @@ public class Cliente implements Serializable {
 		}
 		return contas;
 	}
+	
+	public Instant getAtualizadoEm() {
+		if (this.atualizadoEm == null) {
+			this.atualizadoEm = this.criadoEm;
+		}
+		
+		return this.atualizadoEm;
+	}
 }

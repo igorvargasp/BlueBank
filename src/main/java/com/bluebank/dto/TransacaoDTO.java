@@ -22,15 +22,16 @@ public class TransacaoDTO implements Serializable {
 	private Double montante;
 	private String tipoTransacao;
 	private String status;
-	private Long origem_id;
-	private Long destino_id;
+	private Long contaOrigem_id;
+	private Long contaDestino_id;
 	private Instant criadoEm;
 	private Instant atualizadoEm;
 	
 	public Instant getAtualizadoEm() {
 		if (this.atualizadoEm == null) {
-			return this.criadoEm;
+			this.atualizadoEm = this.criadoEm;
 		}
+		
 		return this.atualizadoEm;
 	}
 }
