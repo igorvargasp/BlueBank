@@ -25,12 +25,14 @@ public class TransacaoMapper {
 				.montante(dto.getMontante())
 				.tipoTransacao(dto.getTipoTransacao())
 				.status(dto.getStatus())
-				.origem(contaMapper
+				.contaOrigem(contaMapper
 						.toEntity(contaService
 								.findById(dto.getOrigem_id())))
-				.destino(contaMapper
+				.contaDestino(contaMapper
 						.toEntity(contaService
 								.findById(dto.getDestino_id())))
+				.criadoEm(dto.getCriadoEm())
+				.atualizadoEm(dto.getAtualizadoEm())
 				.build();
 	}
 	
@@ -45,8 +47,8 @@ public class TransacaoMapper {
 				.montante(montante)
 				.tipoTransacao(tipoTransacao)
 				.status("Concluído")
-				.origem(origem)
-				.destino(destino)
+				.contaOrigem(origem)
+				.contaDestino(destino)
 				.criadoEm(Instant.now())
 				.build();
 	}
@@ -57,8 +59,10 @@ public class TransacaoMapper {
 				.montante(transacao.getMontante())
 				.tipoTransacao(transacao.getTipoTransacao())
 				.status(transacao.getStatus())
-				.origem_id(transacao.getOrigem().getId())
-				.destino_id(transacao.getDestino().getId())
+				.origem_id(transacao.getContaOrigem().getId())
+				.destino_id(transacao.getContaDestino().getId())
+				.criadoEm(transacao.getCriadoEm())
+				.atualizadoEm(transacao.getAtualizadoEm())
 				.build();
 	}
 }

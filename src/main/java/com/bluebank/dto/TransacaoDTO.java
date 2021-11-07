@@ -1,6 +1,7 @@
 package com.bluebank.dto;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,4 +24,13 @@ public class TransacaoDTO implements Serializable {
 	private String status;
 	private Long origem_id;
 	private Long destino_id;
+	private Instant criadoEm;
+	private Instant atualizadoEm;
+	
+	public Instant getAtualizadoEm() {
+		if (this.atualizadoEm == null) {
+			return this.criadoEm;
+		}
+		return this.atualizadoEm;
+	}
 }

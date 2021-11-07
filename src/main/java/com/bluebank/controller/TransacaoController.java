@@ -32,9 +32,15 @@ public class TransacaoController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<TransacaoDTO> findById(@PathVariable Long id) {
+	public ResponseEntity<TransacaoDTO> findByTransacaoId(@PathVariable Long id) {
 		
-		return ResponseEntity.ok(transacaoService.findById(id));
+		return ResponseEntity.ok(transacaoService.findByTransacaoId(id));
+	}
+	
+	@GetMapping(value = "/cliente/{id}")
+	public ResponseEntity<Page<TransacaoDTO>> findByContaOrigemId(Pageable pageable, @PathVariable Long id) {
+		
+		return ResponseEntity.ok(transacaoService.findByContaOrigemId(pageable, id));
 	}
 
 	@PatchMapping(path = "/{id}")
@@ -44,8 +50,12 @@ public class TransacaoController {
 	}
 	
 	@PostMapping(path = "/{origemId}/{destinoId}")
-	public ResponseEntity<TransacaoDTO> transferFunds(@PathVariable Long origemId, @PathVariable Long destinoId,
-			@RequestBody TransacaoDTO data) {
+	public ResponseEntity<TransacaoDTO> transferFunds(
+			@PathVariable Long origemId,
+			@PathVariable Long destinoId,
+			@RequestBody TransacaoDTO data
+			) 
+	{
 		TransacaoDTO dto = transacaoService.transferFunds(origemId, destinoId, data.getMontante(), data.getTipoTransacao());
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		

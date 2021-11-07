@@ -36,8 +36,8 @@ public class Conta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Long id;
-	private Long conta;
-	private Long agencia;
+	private String conta;
+	private String agencia;
 	private Double saldo;
 	private Double limiteCredito;
 	private String tipoConta;
