@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.bluebank.entities.enums.TipoCliente;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,7 +44,7 @@ public class Cliente implements Serializable {
 	private String cpf;
 	private String nomeCompleto;
 	private LocalDate dataNascimento;
-	private String tipoCliente;
+	private Integer tipo;
 	private String email;
 	private String telefone;
 	private Double rendaMensal;
@@ -62,6 +64,7 @@ public class Cliente implements Serializable {
 		if (contas == null) {
 			return new HashSet<>();
 		}
+		
 		return contas;
 	}
 	
@@ -71,5 +74,15 @@ public class Cliente implements Serializable {
 		}
 		
 		return this.atualizadoEm;
+	}
+	
+	public TipoCliente getTipo() {
+		return TipoCliente.toEnum(tipo);
+	}
+
+	public void setTipo(TipoCliente tipo) {
+		if(tipo != null) {
+		this.tipo = tipo.getCod();
+		}
 	}
 }

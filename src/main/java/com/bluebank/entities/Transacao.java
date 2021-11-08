@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.bluebank.entities.enums.StatusTransacao;
+import com.bluebank.entities.enums.TipoTransacao;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,8 +39,8 @@ public class Transacao implements Serializable {
 	@EqualsAndHashCode.Include
 	private Long id;
 	private Double montante;
-	private String tipoTransacao;
-	private String status;
+	private Integer tipo;
+	private Integer status;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Conta contaOrigem;
@@ -59,5 +62,25 @@ public class Transacao implements Serializable {
 		}
 		
 		return this.atualizadoEm;
+	}
+	
+	public TipoTransacao getTipo() {
+		return TipoTransacao.toEnum(tipo);
+	}
+
+	public void setTipo(TipoTransacao tipo) {
+		if(tipo != null) {
+		this.tipo = tipo.getCod();
+		}
+	}
+	
+	public StatusTransacao getStatus() {
+		return StatusTransacao.toEnum(status);
+	}
+	
+	public void setStatus(StatusTransacao status) {
+		if(status != null) {
+			this.status = status.getCod();
+		}
 	}
 }

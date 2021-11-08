@@ -14,7 +14,9 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.lang.NonNull;
+
+import com.bluebank.entities.enums.StatusConta;
+import com.bluebank.entities.enums.TipoConta;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,8 +42,8 @@ public class Conta implements Serializable {
 	private String agencia;
 	private Double saldo;
 	private Double limiteCredito;
-	private String tipoConta;
-	private String status;
+	private Integer tipo;
+	private Integer status;
 	
 	@CreatedDate
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -53,7 +55,6 @@ public class Conta implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
-	@NonNull
 	private Cliente cliente;
 	
 	public Instant getAtualizadoEm() {
@@ -62,5 +63,25 @@ public class Conta implements Serializable {
 		}
 		
 		return this.atualizadoEm;
+	}
+	
+	public TipoConta getTipo() {
+		return TipoConta.toEnum(tipo);
+	}
+
+	public void setTipo(TipoConta tipo) {
+		if(tipo != null) {
+		this.tipo = tipo.getCod();
+		}
+	}
+	
+	public StatusConta getStatus() {
+		return StatusConta.toEnum(status);
+	}
+	
+	public void setStatus(StatusConta status) {
+		if(status != null) {
+			this.status = status.getCod();
+		}
 	}
 }

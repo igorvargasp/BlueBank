@@ -3,6 +3,8 @@ package com.bluebank.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.bluebank.entities.enums.StatusConta;
+import com.bluebank.entities.enums.TipoConta;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -25,10 +27,11 @@ public class ContaDTO implements Serializable {
 	private String agencia;
 	private Double saldo;
 	private Double limiteCredito;
-	private String tipoConta;
-	private String status;
+	private Integer tipo;
+	private Integer status;
 	private Instant criadoEm;
 	private Instant atualizadoEm;
+	private Long clienteId;
 	@JsonIgnore
 	private ClienteDTO cliente;
 	
@@ -38,5 +41,25 @@ public class ContaDTO implements Serializable {
 		}
 		
 		return this.atualizadoEm;
+	}
+	
+	public TipoConta getTipo() {
+		return TipoConta.toEnum(tipo);
+	}
+
+	public void setTipo(TipoConta tipo) {
+		if(tipo != null) {
+		this.tipo = tipo.getCod();
+		}
+	}
+	
+	public StatusConta getStatus() {
+		return StatusConta.toEnum(status);
+	}
+	
+	public void setStatus(StatusConta status) {
+		if(status != null) {
+			this.status = status.getCod();
+		}
 	}
 }

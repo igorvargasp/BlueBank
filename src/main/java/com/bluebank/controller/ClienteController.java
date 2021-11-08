@@ -40,7 +40,11 @@ public class ClienteController {
 	@PostMapping
 	public ResponseEntity<ClienteDTO> insert(@RequestBody ClienteDTO dto) {
 		dto = clienteService.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(dto.getId())
+				.toUri();
 		
 		return ResponseEntity.created(uri).body(dto);
 	}
@@ -48,6 +52,8 @@ public class ClienteController {
 	@PatchMapping(path = "/{id}")
 	public ResponseEntity<ClienteDTO> update(@PathVariable Long id, @RequestBody ClienteDTO dto) {
 		
-		return ResponseEntity.ok(clienteService.update(id, dto));
+		return ResponseEntity.
+				ok(clienteService
+						.update(id, dto));
 	}
 }

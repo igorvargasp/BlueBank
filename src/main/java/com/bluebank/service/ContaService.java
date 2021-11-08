@@ -12,6 +12,7 @@ import com.bluebank.dto.ContaDTO;
 import com.bluebank.dto.TransacaoDTO;
 import com.bluebank.entities.Conta;
 import com.bluebank.entities.Transacao;
+import com.bluebank.entities.enums.StatusConta;
 import com.bluebank.mapper.ContaMapper;
 import com.bluebank.mapper.TransacaoMapper;
 import com.bluebank.repository.ContaRepository;
@@ -35,7 +36,7 @@ public class ContaService {
 	
 	@Autowired
 	private TransacaoMapper transacaoMapper; 
-
+	
 	@Transactional(readOnly = true)
 	public Page<ContaDTO> findAll(Pageable pageable) {
 		
@@ -58,9 +59,8 @@ public class ContaService {
 
 	@Transactional
 	public ContaDTO insert(ContaDTO dto) {
-		dto.setSaldo(0.0);
-		dto.setLimiteCredito(0.0);
-		return contaMapper.toDto(contaRepository.save(contaMapper.toEntity(dto)));
+		
+		return contaMapper.toDto(contaRepository.save(contaMapper.createPrePersistenceAccount(dto)));
 	}
 
 	@Transactional
@@ -68,7 +68,7 @@ public class ContaService {
 			Conta conta = contaRepository.findById(id).orElseThrow(() ->
 			new ResourceNotFoundException("Conta não encontrada! Id = " + id));
 			conta.setLimiteCredito(dto.getLimiteCredito());
-			
+			conta.setAtualizadoEm(Instant.now());
 			return contaMapper
 					.toDto(contaRepository
 							.save(conta));
@@ -76,23 +76,27 @@ public class ContaService {
 
 	@Transactional
 	public ContaDTO disable(Long id) {
-			ContaDTO contaDTO = findById(id);
-			if (hasBalance(contaDTO)) {
+			Conta conta = contaRepository.findById(id)
+					.orElseThrow(() -> new ResourceNotFoundException("Conta não encontrada! Id = " + id));
+			if (hasBalance(conta)) {
 				throw new BusinessException("Saldo precisa ser zero.");
 			}
-			contaDTO.setStatus("Desativada");
-			contaDTO.setAtualizadoEm(Instant.now());
+			isAtiva(conta);
+			conta.setStatus(StatusConta.DESATIVADA);
+			conta.setAtualizadoEm(Instant.now());
 			
-			return contaMapper.toDto(contaRepository.save(contaMapper.toEntity(contaDTO)));
+			return contaMapper.toDto(contaRepository.save(conta));
 	}
 	
 	@Transactional
-	public TransacaoDTO transferFunds(Long contaOrigemId, Long contaDestinoId, Double montante, String tipoTransacao) {
+	public TransacaoDTO transferFunds(Long contaOrigemId, Long contaDestinoId, Double montante, Integer tipoTransacao) {
 		Conta contaOrigem = contaRepository.findById(contaOrigemId)
 				.orElseThrow(() -> new ResourceNotFoundException("Conta não encontrada! Id = " + contaOrigemId));
 		Conta contaDestino = contaRepository.findById(contaDestinoId)
 				.orElseThrow(() -> new ResourceNotFoundException("Conta não encontrada! Id = " + contaDestinoId));
 		
+		isAtiva(contaOrigem);
+		isAtiva(contaDestino);
 		isAmountValid(montante);
 		hasLimit(contaOrigem, montante);
 		contaOrigem = withdraw(contaOrigem, montante);
@@ -106,7 +110,7 @@ public class ContaService {
 		
 				return transacaoMapper.toDto(transacaoRepository.save(newTransacao));
 	}
-	
+
 	private boolean hasLimit(Conta conta, Double montante) {
 		double limite = conta.getSaldo() + conta.getLimiteCredito();
 		if ( limite >= montante) {
@@ -143,11 +147,20 @@ public class ContaService {
 		return true;
 	}
 	
-	private boolean hasBalance (ContaDTO conta) {
+	private boolean hasBalance (Conta conta) {
 		if (conta.getSaldo() == 0.0) {
 			return false;
 		}
 		
 		return true;
+	}
+	
+	private void isAtiva(Conta conta) {
+		if (conta.getStatus() == StatusConta.BLOQUEADA) {
+			throw new BusinessException("Conta: " + conta.getId() + ", Bloqueada!");
+		}
+		if (conta.getStatus() == StatusConta.DESATIVADA) {
+			throw new BusinessException("Conta: " + conta.getId() + ", Desativada!");
+		}
 	}
 }
