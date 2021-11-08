@@ -29,8 +29,6 @@ import com.bluebank.mapper.ContaMapper;
 import com.bluebank.repository.ClienteRepository;
 import com.bluebank.repository.ContaRepository;
 import com.bluebank.service.ClienteService;
-import com.bluebank.service.exceptions.DatabaseException;
-import com.bluebank.service.exceptions.ResourceNotFoundException;
 import com.bluebank.tests.Factory;
 
 @ExtendWith(SpringExtension.class)
@@ -136,29 +134,4 @@ public class ClienteServiceTest {
 		Assertions.assertNotNull(result);
 		Mockito.verify(clienteRepository).findAll(pageable);
 	}
-
-	@Test
-	public void deleteShouldThrowDataBaseExceptionnWhenIdDoesNotExist() {
-		Assertions.assertThrows(DatabaseException.class, () -> {
-			clienteService.delete(dependentId);
-		});
-		Mockito.verify(clienteRepository, Mockito.times(1)).deleteById(dependentId);
-	}
-
-	@Test
-	public void deleteShouldThrowResourceNotFoundExceptionnWhenIdDoesNotExist() {
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-			clienteService.delete(nonExistingId);
-		});
-		Mockito.verify(clienteRepository, Mockito.times(1)).deleteById(nonExistingId);
-	}
-
-	@Test
-	public void deleteShouldDoNothingWhenIdExists() {
-		Assertions.assertDoesNotThrow(() -> {
-			clienteService.delete(existingId);
-		});
-		Mockito.verify(clienteRepository, Mockito.times(1)).deleteById(existingId);
-	}
-
 }

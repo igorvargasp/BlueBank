@@ -1,47 +1,54 @@
-INSERT INTO tb_cliente( cpf, criado_em, data_nascimento, email , nome_completo, renda_mensal , telefone, tipo ) VALUES ( '12312345678', '2021-11-08 13:07', '2000-10-10',   'pedro@gmail.com', 'Pedro Carlos', 3570.00 ,  '(88)987541236',  1);
-INSERT INTO tb_cliente( cpf, criado_em, data_nascimento, email , nome_completo, renda_mensal , telefone, tipo ) VALUES ( '92312345679', '2021-11-08 13:07', '2000-10-10',   'jao@gmail.com', 'Joao Tavares', 3570.00 ,  '(88)987541236',  1);
-INSERT INTO tb_cliente( cpf, criado_em, data_nascimento, email , nome_completo, renda_mensal , telefone, tipo ) VALUES ( '82312345676', '2021-11-08 13:07', '2000-10-10',   'Algusto@gmail.com', 'Algusto Carlos', 3570.00 ,  '(88)987541236',  1);
-INSERT INTO tb_cliente( cpf, criado_em, data_nascimento, email , nome_completo, renda_mensal , telefone, tipo ) VALUES ( '72312345674', '2021-11-08 13:07', '2000-10-10',   'Lopes@gmail.com', 'Lopes', 3570.00 ,  '(88)987541236',  1);
-INSERT INTO tb_cliente( cpf, criado_em, data_nascimento, email , nome_completo, renda_mensal , telefone, tipo ) VALUES ( '62312345671', '2021-11-08 13:07', '2000-10-10',   'pedro@gmail.com', 'Pedro Carlos', 3570.00 ,  '(88)987541236',  1);
+INSERT INTO TB_CLIENTE (CPF, DATA_NASCIMENTO, EMAIL, NOME_COMPLETO, RENDA_MENSAL, TELEFONE, TIPO, CRIADO_EM) VALUES 
+('035.123.456-78', '2000-01-22', 'calebemarcos@fulltransport.com.br', 'Calebe Marcos Manoel Farias', 2500.00, '(88)98578-8820', 1, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+
+INSERT INTO TB_CLIENTE (CPF, DATA_NASCIMENTO, EMAIL, NOME_COMPLETO, RENDA_MENSAL, TELEFONE, TIPO, CRIADO_EM) VALUES 
+('082.420.840-41', '1987-03-10', 'gustavobenicio75@yahoo.com', 'Gustavo Benício Cauã da Silva', 2500.00, '(58)98755-2210', 1, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+
+INSERT INTO TB_CLIENTE (CPF, DATA_NASCIMENTO, EMAIL, NOME_COMPLETO, RENDA_MENSAL, TELEFONE, TIPO, CRIADO_EM) VALUES 
+('520.170.100-06', '1992-03-12', 'raulcesarrezende_@kmspublicidade.com.br', 'Raul César Rezende', 2500.00, '(11)98578-9620', 1, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+
+INSERT INTO TB_CLIENTE (CPF, DATA_NASCIMENTO, EMAIL, NOME_COMPLETO, RENDA_MENSAL, TELEFONE, TIPO, CRIADO_EM) VALUES 
+('334.070.470-88', '1980-01-17', 'manueliagoaugustopeixoto@soutorigotti.com.br', 'Manuel Iago Augusto Peixoto', 2500.00, '(15)98754-2420', 1, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
 
 
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1245', '2021-11-08 13:07',   2000,  3570.00 , 1,1,1);
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1246', '2021-11-08 13:07',   4000,  2570.00 , 1,1,2);
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1247', '2021-11-08 13:07',   5000,  3570.00 , 1,1,3);
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1248', '2021-11-08 13:07',   6000,  5570.00 , 1,1,4);
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1249', '2021-11-08 13:07',   8000,  8570.00 , 1,1,5);
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1250', '2021-11-08 13:07',   10000,  3570.00 , 1,1,1);
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1251', '2021-11-08 13:07',   3500,  8570.00 , 1,1,2);
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1252', '2021-11-08 13:07',   2500,  5570.00 , 1,1,3);
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1253', '2021-11-08 13:07',   4500,  5570.00 , 1,1,4);
-INSERT INTO tb_conta( agencia,  conta, criado_em , limite_credito, saldo , status, tipo, cliente_id ) VALUES ( '1144', '1254', '2021-11-08 13:07',   2500,  5570.00 , 1,1,5);
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) VALUES 
+('280270-8', '3544', 2000.00, 2000.00, 1, 1, 1, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) VALUES 
+('925324-8', '1677', 2000.00, 2000.00, 1, 1, 1, TIMESTAMP WITH TIME ZONE '2021-11-01T20:50:07.12345Z');
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) 
+VALUES ('0611393-1', '3569', 2000.00, 2000.00, 1, 1, 1, TIMESTAMP WITH TIME ZONE '2021-09-07T20:50:07.12345Z');
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) VALUES 
+('1149366-6', '0911', 2000.00, 2000.00, 1, 1, 2, TIMESTAMP WITH TIME ZONE '2021-08-05T20:50:07.12345Z');
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) 
+VALUES ('73079-2', '7793', 2000.00, 2000.00, 1, 1, 2, TIMESTAMP WITH TIME ZONE '2021-07-23T20:50:07.12345Z');
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) VALUES 
+('0132969-3', '3669', 2000.00, 2000.00, 1, 1, 2, TIMESTAMP WITH TIME ZONE '2021-06-10T20:50:07.12345Z');
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) VALUES 
+('07318328-3', '0913', 2000.00, 2000.00, 1, 1, 3, TIMESTAMP WITH TIME ZONE '2021-06-02T20:50:07.12345Z');
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) VALUES 
+('90609-3', '4208', 2000.00, 2000.00, 1, 1, 3, TIMESTAMP WITH TIME ZONE '2021-06-18T20:50:07.12345Z');
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) VALUES 
+('1050184-3', '3592', 2000.00, 2000.00, 1, 1, 4, TIMESTAMP WITH TIME ZONE '2021-06-05T20:50:07.12345Z');
+INSERT INTO TB_CONTA (CONTA, AGENCIA, SALDO, LIMITE_CREDITO, TIPO, STATUS, CLIENTE_ID, CRIADO_EM) VALUES 
+('1042383-4', '0817', 2000.00, 2000.00, 1, 1, 4, TIMESTAMP WITH TIME ZONE '2021-07-21T20:50:07.12345Z');
 
-
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 100, 1,1,1,2);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,2,3);
-
-
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,3,2);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,4,3);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,5,4);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,6,5);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,7,6);
-
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,8,7);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,9,8);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,8,9);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,7,1);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,6,2);
-
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,5,2);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,4,3);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,3,4);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,2,5);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,1,6);
-
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,3,7);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,2,8);
-INSERT INTO tb_transacao(criado_em, montante, status, tipo, conta_destino_id, conta_origem_id ) VALUES ('2021-11-08 13:07', 200, 1,1,1,9);
-
-
-
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(300.00, 1, 1, 1, 3, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(400.00, 1, 1, 2, 1, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(500.00, 1, 1, 4, 2, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(600.00, 1, 1, 3, 1, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(150.00, 1, 1, 1, 4, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(220.00, 1, 1, 4, 1, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(180.00, 1, 1, 3, 2, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(120.00, 1, 1, 2, 1, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(450.00, 1, 1, 4, 2, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');
+INSERT INTO TB_TRANSACAO (MONTANTE, TIPO, STATUS, CONTA_ORIGEM_ID, CONTA_DESTINO_ID, CRIADO_EM) VALUES 
+(250.00, 1, 1, 3, 2, TIMESTAMP WITH TIME ZONE '2021-10-13T20:50:07.12345Z');

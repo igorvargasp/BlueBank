@@ -26,7 +26,7 @@ public class ClienteRepositoryTests {
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 1000L;
-		countTotalClientes = 2L;
+		countTotalClientes = 4L;
 	}
 
 	@Test
