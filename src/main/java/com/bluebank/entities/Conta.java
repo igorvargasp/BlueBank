@@ -69,19 +69,7 @@ public class Conta implements Serializable {
 		return TipoConta.toEnum(tipo);
 	}
 
-	public void setTipo(TipoConta tipo) {
-		if(tipo != null) {
-		this.tipo = tipo.getCod();
-		}
-	}
-	
 	public StatusConta getStatus() {
 		return StatusConta.toEnum(status);
-	}
-	
-	public void setStatus(StatusConta status) {
-		if(status != null) {
-			this.status = status.getCod();
-		}
 	}
 }

@@ -48,6 +48,7 @@ public class ContaMapper {
 				.status(conta.getStatus().getCod())
 				.criadoEm(conta.getCriadoEm())
 				.atualizadoEm(conta.getAtualizadoEm())
+				.clienteId(conta.getCliente().getId())
 				.build();
 	}
 
@@ -59,8 +60,8 @@ public class ContaMapper {
 		return Conta.builder()
 		.conta(dto.getConta())
 		.agencia(dto.getAgencia())
-		.saldo(0.0)
-		.limiteCredito(0.0)
+		.saldo(2000.0)
+		.limiteCredito(2000.0)
 		.tipo(dto.getTipo().getCod())
 		.cliente(clienteRepository.findById(dto.getClienteId())
 				.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado! Id = " + dto.getClienteId())))

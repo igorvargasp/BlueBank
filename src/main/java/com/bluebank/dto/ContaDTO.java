@@ -5,6 +5,7 @@ import java.time.Instant;
 
 import com.bluebank.entities.enums.StatusConta;
 import com.bluebank.entities.enums.TipoConta;
+import com.bluebank.service.exceptions.BusinessException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -44,22 +45,16 @@ public class ContaDTO implements Serializable {
 	}
 	
 	public TipoConta getTipo() {
-		return TipoConta.toEnum(tipo);
-	}
-
-	public void setTipo(TipoConta tipo) {
-		if(tipo != null) {
-		this.tipo = tipo.getCod();
+		if(this.tipo == null) {
+			throw new BusinessException("Conta sem Tipo!");
 		}
+		return TipoConta.toEnum(tipo);
 	}
 	
 	public StatusConta getStatus() {
-		return StatusConta.toEnum(status);
-	}
-	
-	public void setStatus(StatusConta status) {
-		if(status != null) {
-			this.status = status.getCod();
+		if(this.status == null) {
+			throw new BusinessException("Conta sem Status!");
 		}
+		return StatusConta.toEnum(status);
 	}
 }

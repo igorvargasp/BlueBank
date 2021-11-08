@@ -67,6 +67,8 @@ public class ContaService {
 	public ContaDTO updateLimit(Long id, ContaDTO dto) {
 			Conta conta = contaRepository.findById(id).orElseThrow(() ->
 			new ResourceNotFoundException("Conta não encontrada! Id = " + id));
+			isAmountValid(dto.getLimiteCredito());
+			isLimitAcceptable(conta.getCliente().getRendaMensal(), dto.getLimiteCredito());
 			conta.setLimiteCredito(dto.getLimiteCredito());
 			conta.setAtualizadoEm(Instant.now());
 			return contaMapper
@@ -74,17 +76,24 @@ public class ContaService {
 							.save(conta));
 	}
 
+
 	@Transactional
-	public ContaDTO disable(Long id) {
+	public ContaDTO updateStatus(Long id, ContaDTO dto) {
 			Conta conta = contaRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Conta não encontrada! Id = " + id));
-			if (hasBalance(conta)) {
-				throw new BusinessException("Saldo precisa ser zero.");
-			}
-			isAtiva(conta);
-			conta.setStatus(StatusConta.DESATIVADA);
-			conta.setAtualizadoEm(Instant.now());
+				conta.setAtualizadoEm(Instant.now());
 			
+				if (dto.getStatus() == StatusConta.BLOQUEADA) {
+					conta.setStatus(StatusConta.BLOQUEADA.getCod());
+					return contaMapper.toDto(contaRepository.save(conta));
+				}
+			
+				if (dto.getStatus() == StatusConta.DESATIVADA && !hasBalance(conta)) {
+					conta.setStatus(StatusConta.DESATIVADA.getCod());
+					return contaMapper.toDto(contaRepository.save(conta));
+				}
+				
+			conta.setStatus(dto.getStatus().getCod());
 			return contaMapper.toDto(contaRepository.save(conta));
 	}
 	
@@ -122,12 +131,7 @@ public class ContaService {
 	
 	private Conta withdraw (Conta contaOrigem, Double montante) {
 		double saldo = contaOrigem.getSaldo();
-		
-		if (montante > saldo) {
-			contaOrigem.setSaldo(saldo - montante);
-			
-			return contaOrigem;
-		}
+	
 		contaOrigem.setSaldo(saldo - montante);
 		
 		return contaOrigem;
@@ -149,18 +153,25 @@ public class ContaService {
 	
 	private boolean hasBalance (Conta conta) {
 		if (conta.getSaldo() == 0.0) {
-			return false;
+			return true;
 		}
 		
-		return true;
+		throw new BusinessException("Saldo precisa ser zero.");
 	}
 	
-	private void isAtiva(Conta conta) {
+	private boolean isAtiva(Conta conta) {
 		if (conta.getStatus() == StatusConta.BLOQUEADA) {
 			throw new BusinessException("Conta: " + conta.getId() + ", Bloqueada!");
 		}
 		if (conta.getStatus() == StatusConta.DESATIVADA) {
 			throw new BusinessException("Conta: " + conta.getId() + ", Desativada!");
+		}
+		return true;
+	}
+	
+	private void isLimitAcceptable(Double rendaMensal, Double novoLimiteCredito) {
+		if (novoLimiteCredito > 2 * rendaMensal) {
+			throw new BusinessException("Limite máximo de crédito excedido!");
 		}
 	}
 }
