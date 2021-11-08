@@ -40,6 +40,7 @@ public class BlueBankApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
+		/*
 		Cliente cliente = Cliente.builder()
 				.id(null)
 				.cpf("12312345678")
@@ -107,6 +108,7 @@ public class BlueBankApplication implements CommandLineRunner {
 		contaRepository.saveAll(Arrays.asList(conta, conta2, conta3));
 		
 		contaService.transferFunds(conta2.getId(), conta.getId(), 1000.00, TipoTransacao.PIX.getCod());
+		*/
 	}
 
 
