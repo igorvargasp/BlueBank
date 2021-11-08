@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import com.bluebank.dto.ClienteDTO;
 import com.bluebank.entities.Cliente;
 import com.bluebank.entities.Conta;
+import com.bluebank.entities.enums.TipoCliente;
+import com.bluebank.entities.enums.TipoConta;
 
 public class Factory {
 
@@ -15,7 +17,7 @@ public class Factory {
 				.cpf("12312345678")
 				.nomeCompleto("Joao da Silva")
 				.dataNascimento(LocalDate.of(2000, 10, 10))
-				.tipoCliente("PF")
+				.tipo(TipoCliente.PF.getCod())
 				.email("joao@gmail.com")
 				.telefone("(88)987541236")
 				.rendaMensal(3570.00)
@@ -31,7 +33,7 @@ public class Factory {
 				.cpf("12312345678")
 				.nomeCompleto("Joao da Silva")
 				.dataNascimento(LocalDate.of(2000, 10, 10))
-				.tipoCliente("PF")
+				.tipo(TipoCliente.PF.getCod())
 				.email("joao@gmail.com")
 				.telefone("(88)987541236")
 				.rendaMensal(3570.00)
@@ -47,7 +49,7 @@ public class Factory {
 				.agencia("777")
 				.saldo(700.00)
 				.limiteCredito(1000.00)
-				.tipoConta("PF")
+				.tipo(TipoConta.CORRENTE.getCod())
 				.build();
 	}
 

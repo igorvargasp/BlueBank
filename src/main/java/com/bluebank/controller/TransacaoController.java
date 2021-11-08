@@ -56,7 +56,7 @@ public class TransacaoController {
 			@RequestBody TransacaoDTO data
 			) 
 	{
-		TransacaoDTO dto = transacaoService.transferFunds(contaOrigemId, contaDestinoId, data.getMontante(), data.getTipoTransacao());
+		TransacaoDTO dto = transacaoService.transferFunds(contaOrigemId, contaDestinoId, data.getMontante(), data.getTipo().getCod());
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(dto);

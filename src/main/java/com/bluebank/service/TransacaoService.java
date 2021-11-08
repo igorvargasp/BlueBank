@@ -58,7 +58,7 @@ public class TransacaoService {
 	}
 	
 	@Transactional
-	public TransacaoDTO transferFunds(Long contaOrigemId, Long contaDestinoId, Double montante, String tipoTransacao) {
+	public TransacaoDTO transferFunds(Long contaOrigemId, Long contaDestinoId, Double montante, Integer tipoTransacao) {
 		
 		return contaService.transferFunds(contaOrigemId, contaDestinoId, montante, tipoTransacao);
 	}

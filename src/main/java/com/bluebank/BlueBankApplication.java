@@ -11,6 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bluebank.entities.Cliente;
 import com.bluebank.entities.Conta;
+import com.bluebank.entities.enums.StatusConta;
+import com.bluebank.entities.enums.TipoCliente;
+import com.bluebank.entities.enums.TipoConta;
+import com.bluebank.entities.enums.TipoTransacao;
 import com.bluebank.repository.ClienteRepository;
 import com.bluebank.repository.ContaRepository;
 import com.bluebank.service.ContaService;
@@ -41,7 +45,7 @@ public class BlueBankApplication implements CommandLineRunner {
 				.cpf("12312345678")
 				.nomeCompleto("Joao da Silva")
 				.dataNascimento(LocalDate.of(2000, 10, 10))
-				.tipoCliente("PF")
+				.tipo(TipoCliente.PF.getCod())
 				.email("joao@gmail.com")
 				.telefone("(88)987541236")
 				.rendaMensal(3570.00)
@@ -53,7 +57,7 @@ public class BlueBankApplication implements CommandLineRunner {
 				.cpf("12312345678")
 				.nomeCompleto("Marcos Vinicius")
 				.dataNascimento(LocalDate.of(1998, 10, 10))
-				.tipoCliente("PF")
+				.tipo(TipoCliente.PF.getCod())
 				.email("marcos@gmail.com")
 				.telefone("(88)987541236")
 				.rendaMensal(3570.00)
@@ -66,7 +70,8 @@ public class BlueBankApplication implements CommandLineRunner {
 				.agencia("101")
 				.saldo(700.00)
 				.limiteCredito(1000.00)
-				.tipoConta("Corrente")
+				.tipo(TipoConta.CORRENTE.getCod())
+				.status(StatusConta.ATIVA.getCod())
 				.cliente(cliente)
 				.criadoEm(Instant.now())
 				.build();
@@ -77,7 +82,8 @@ public class BlueBankApplication implements CommandLineRunner {
 				.agencia("202")
 				.saldo(800.00)
 				.limiteCredito(2000.00)
-				.tipoConta("Corrente")
+				.tipo(TipoConta.CORRENTE.getCod())
+				.status(StatusConta.ATIVA.getCod())
 				.cliente(cliente)
 				.criadoEm(Instant.now())
 				.build();
@@ -88,7 +94,8 @@ public class BlueBankApplication implements CommandLineRunner {
 				.agencia("303")
 				.saldo(900.00)
 				.limiteCredito(3000.00)
-				.tipoConta("Corrente")
+				.tipo(TipoConta.CORRENTE.getCod())
+				.status(StatusConta.ATIVA.getCod())
 				.cliente(cliente2)
 				.criadoEm(Instant.now())
 				.build();
@@ -99,7 +106,7 @@ public class BlueBankApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cliente, cliente2));
 		contaRepository.saveAll(Arrays.asList(conta, conta2, conta3));
 		
-		contaService.transferFunds(conta2.getId(), conta.getId(), 1000.00, "Pix");
+		contaService.transferFunds(conta2.getId(), conta.getId(), 1000.00, TipoTransacao.PIX.getCod());
 	}
 
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.bluebank.dto.TransacaoDTO;
 import com.bluebank.entities.Conta;
 import com.bluebank.entities.Transacao;
+import com.bluebank.entities.enums.StatusTransacao;
 import com.bluebank.service.ContaService;
 
 @Component
@@ -23,8 +24,8 @@ public class TransacaoMapper {
 		return Transacao.builder()
 				.id(dto.getId())
 				.montante(dto.getMontante())
-				.tipoTransacao(dto.getTipoTransacao())
-				.status(dto.getStatus())
+				.tipo(dto.getTipo().getCod())
+				.status(dto.getStatus().getCod())
 				.contaOrigem(contaMapper
 						.toEntity(contaService
 								.findById(dto.getContaOrigem_id())))
@@ -38,15 +39,15 @@ public class TransacaoMapper {
 	
 	public Transacao createPrePersistenceEntityWithProvidedAccounts (
 			Double montante,
-			String tipoTransacao,
+			Integer tipoTransacao,
 			Conta origem,
 			Conta destino
 			) {
 		return Transacao.builder()
 				.id(null)
 				.montante(montante)
-				.tipoTransacao(tipoTransacao)
-				.status("Concluído")
+				.tipo(tipoTransacao)
+				.status((StatusTransacao.CONCLUÍDA.getCod()))
 				.contaOrigem(origem)
 				.contaDestino(destino)
 				.criadoEm(Instant.now())
@@ -57,8 +58,8 @@ public class TransacaoMapper {
 		return TransacaoDTO.builder()
 				.id(transacao.getId())
 				.montante(transacao.getMontante())
-				.tipoTransacao(transacao.getTipoTransacao())
-				.status(transacao.getStatus())
+				.tipo(transacao.getTipo().getCod())
+				.status(transacao.getStatus().getCod())
 				.contaOrigem_id(transacao.getContaOrigem().getId())
 				.contaDestino_id(transacao.getContaDestino().getId())
 				.criadoEm(transacao.getCriadoEm())

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,7 +52,7 @@ public class ContaController {
 		return ResponseEntity.created(uri).body(dto);
 	}
 
-	@PutMapping(path = "/{id}")
+	@PatchMapping(path = "/{id}/limit")
 	public ResponseEntity<ContaDTO> updateLimit(@PathVariable Long id, @RequestBody ContaDTO dto) {
 		
 		return ResponseEntity.ok(contaService.updateLimit(id, dto));
@@ -72,7 +71,7 @@ public class ContaController {
 			@RequestBody TransacaoDTO data
 			) 
 	{
-		TransacaoDTO dto = contaService.transferFunds(origemId, destinoId, data.getMontante(), data.getTipoTransacao());
+		TransacaoDTO dto = contaService.transferFunds(origemId, destinoId, data.getMontante(), data.getTipo().getCod());
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(dto);

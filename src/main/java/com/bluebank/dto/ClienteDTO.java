@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.bluebank.entities.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class ClienteDTO implements Serializable {
 	private String cpf;
 	private String nomeCompleto;
 	private LocalDate dataNascimento;
-	private String tipoCliente;
+	private Integer tipo;
 	private String email;
 	private String telefone;
 	private Double rendaMensal;
@@ -49,5 +50,15 @@ public class ClienteDTO implements Serializable {
 		}
 		
 		return this.atualizadoEm;
+	}
+	
+	public TipoCliente getTipo() {
+		return TipoCliente.toEnum(tipo);
+	}
+
+	public void setTipo(TipoCliente tipo) {
+		if(tipo != null) {
+		this.tipo = tipo.getCod();
+		}
 	}
 }
