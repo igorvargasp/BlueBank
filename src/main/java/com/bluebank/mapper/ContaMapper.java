@@ -48,6 +48,7 @@ public class ContaMapper {
 				.status(conta.getStatus().getCod())
 				.criadoEm(conta.getCriadoEm())
 				.atualizadoEm(conta.getAtualizadoEm())
+				.clienteId(conta.getCliente().getId())
 				.build();
 	}
 

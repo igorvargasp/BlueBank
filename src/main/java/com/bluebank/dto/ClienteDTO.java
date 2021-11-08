@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.bluebank.entities.enums.TipoCliente;
+import com.bluebank.service.exceptions.BusinessException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -53,12 +54,9 @@ public class ClienteDTO implements Serializable {
 	}
 	
 	public TipoCliente getTipo() {
-		return TipoCliente.toEnum(tipo);
-	}
-
-	public void setTipo(TipoCliente tipo) {
-		if(tipo != null) {
-		this.tipo = tipo.getCod();
+		if(this.tipo == null) {
+			throw new BusinessException("Tipo do Cliente não Informado.");
 		}
+		return TipoCliente.toEnum(tipo);
 	}
 }

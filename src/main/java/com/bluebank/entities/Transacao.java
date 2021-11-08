@@ -67,20 +67,8 @@ public class Transacao implements Serializable {
 	public TipoTransacao getTipo() {
 		return TipoTransacao.toEnum(tipo);
 	}
-
-	public void setTipo(TipoTransacao tipo) {
-		if(tipo != null) {
-		this.tipo = tipo.getCod();
-		}
-	}
 	
 	public StatusTransacao getStatus() {
 		return StatusTransacao.toEnum(status);
-	}
-	
-	public void setStatus(StatusTransacao status) {
-		if(status != null) {
-			this.status = status.getCod();
-		}
 	}
 }

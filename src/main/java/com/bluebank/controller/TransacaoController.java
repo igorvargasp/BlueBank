@@ -49,7 +49,7 @@ public class TransacaoController {
 		return ResponseEntity.ok(transacaoService.updateStatus(id, dto));
 	}
 	
-	@PostMapping(path = "/{origemId}/{destinoId}")
+	@PostMapping(path = "/{contaOrigemId}/{contaDestinoId}")
 	public ResponseEntity<TransacaoDTO> transferFunds(
 			@PathVariable Long contaOrigemId,
 			@PathVariable Long contaDestinoId,

@@ -5,6 +5,7 @@ import java.time.Instant;
 
 import com.bluebank.entities.enums.StatusTransacao;
 import com.bluebank.entities.enums.TipoTransacao;
+import com.bluebank.service.exceptions.BusinessException;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,22 +40,16 @@ public class TransacaoDTO implements Serializable {
 	}
 	
 	public TipoTransacao getTipo() {
-		return TipoTransacao.toEnum(tipo);
-	}
-
-	public void setTipo(TipoTransacao tipo) {
-		if(tipo != null) {
-		this.tipo = tipo.getCod();
+		if(this.tipo == null) {
+			throw new BusinessException("Tipo da Transação não Informado.");
 		}
+		return TipoTransacao.toEnum(tipo);
 	}
 	
 	public StatusTransacao getStatus() {
-		return StatusTransacao.toEnum(status);
-	}
-	
-	public void setStatus(StatusTransacao status) {
-		if(status != null) {
-			this.status = status.getCod();
+		if(this.status == null) {
+			throw new BusinessException("Status da Transação não Informado.");
 		}
+		return StatusTransacao.toEnum(status);
 	}
 }

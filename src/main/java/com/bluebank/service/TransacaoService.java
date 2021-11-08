@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bluebank.dto.TransacaoDTO;
 import com.bluebank.entities.Transacao;
+import com.bluebank.entities.enums.StatusTransacao;
 import com.bluebank.mapper.TransacaoMapper;
 import com.bluebank.repository.TransacaoRepository;
+import com.bluebank.service.exceptions.BusinessException;
 import com.bluebank.service.exceptions.ResourceNotFoundException;
 
 @Service
@@ -50,8 +52,18 @@ public class TransacaoService {
 	public TransacaoDTO updateStatus(Long id, TransacaoDTO dto) {
 			Transacao transacao = transacaoRepository.findById(id).orElseThrow(() ->
 			new ResourceNotFoundException("Transacao não encontrada! Id = " + id));
-			transacao.setStatus(dto.getStatus());
-
+			if (dto.getStatus() == StatusTransacao.CANCELADA) {
+				transferFunds(
+						transacao.getContaDestino().getId(),
+						transacao.getContaOrigem().getId(),
+						transacao.getMontante(),
+						transacao.getTipo().getCod()
+						);
+			}
+			if (transacao.getStatus() == StatusTransacao.CANCELADA) {
+				throw new BusinessException("Transação já foi cancelada!");
+			}
+			transacao.setStatus(dto.getStatus().getCod());
 			return transacaoMapper
 					.toDto(transacaoRepository
 							.save(transacao));

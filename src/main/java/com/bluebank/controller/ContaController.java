@@ -59,19 +59,19 @@ public class ContaController {
 	}
 
 	@PatchMapping(path = "/{id}")
-	public ResponseEntity<ContaDTO> disable(@PathVariable Long id) {
+	public ResponseEntity<ContaDTO> disable(@PathVariable Long id,  @RequestBody ContaDTO dto) {
 		
-		return ResponseEntity.ok(contaService.disable(id));
+		return ResponseEntity.ok(contaService.updateStatus(id, dto));
 	}
 	
-	@PostMapping(path = "/{origemId}/transfer/{destinoId}")
+	@PostMapping(path = "/{contaOrigemId}/transfer/{contaDestinoId}")
 	public ResponseEntity<TransacaoDTO> transferFunds(
-			@PathVariable Long origemId,
-			@PathVariable Long destinoId,
+			@PathVariable Long contaOrigemId,
+			@PathVariable Long contaDestinoId,
 			@RequestBody TransacaoDTO data
 			) 
 	{
-		TransacaoDTO dto = contaService.transferFunds(origemId, destinoId, data.getMontante(), data.getTipo().getCod());
+		TransacaoDTO dto = contaService.transferFunds(contaOrigemId, contaDestinoId, data.getMontante(), data.getTipo().getCod());
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(dto);
